@@ -5,6 +5,9 @@ name: PR Merge
       - main
     types:
       - closed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   merge:
     name: PR Merge
