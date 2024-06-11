@@ -16,6 +16,8 @@ jobs:
         with:
           token: ${{ github.token }}
           branch: main
+          noVersionBumpBehavior: silent
+          noNewCommitBehavior: silent
 
       - name: Use Next Version
         if: ${{ steps.semver.outputs.next != '' }}
