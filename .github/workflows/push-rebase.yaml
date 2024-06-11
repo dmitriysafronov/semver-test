@@ -4,7 +4,7 @@ name: Push Rebase
     branches:
       - main
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: push-rebase
   cancel-in-progress: true
 jobs:
   rebase:
