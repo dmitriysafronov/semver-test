@@ -26,6 +26,7 @@ jobs:
         if: ${{ steps.semver.outputs.next != '' }}
         uses: tvdias/github-tagger@v0.0.2
         with:
+          repo-token: "${{ github.token }}"
           tag: ${{ steps.semver.outputs.next }}
         env:
           TZ: UTC
