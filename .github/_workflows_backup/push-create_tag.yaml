@@ -1,12 +1,12 @@
-name: PR
+name: Push Create Tag
 "on":
-  pull_request:
+  push:
     branches:
       - main
 concurrency: production
 jobs:
-  update:
-    name: Update
+  create:
+    name: Push  Create Tag
     runs-on: ubuntu-latest
     steps:
 
@@ -19,9 +19,9 @@ jobs:
           noVersionBumpBehavior: silent
           noNewCommitBehavior: silent
 
-      - name: Use Next Version
+      - name: "Use Next Version: Create New Tag"
         if: ${{ steps.semver.outputs.next != '' }}
-        run: |
-          echo ${{ steps.semver.outputs.next }}
+        uses: ChloePlanet/github-tag-action@master
         env:
-          TZ: UTC
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+          CUSTOM_TAG: ${{ steps.semver.outputs.next }}
