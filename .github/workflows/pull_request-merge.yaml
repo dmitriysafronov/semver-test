@@ -24,9 +24,10 @@ jobs:
 
       - name: "Use Next Version: Create New Tag"
         if: ${{ steps.semver.outputs.next != '' }}
-        uses: tvdias/github-tagger@v0.0.2
+        uses: rickstaa/action-create-tag@v1
+        id: "tag_create"
         with:
-          repo-token: "${{ github.token }}"
-          tag: ${{ steps.semver.outputs.next }}
-        env:
-          TZ: UTC
+          github_token: ${{ secrets.PAT }}
+          tag: "${{ steps.semver.outputs.next != '' }}"
+          tag_exists_error: true
+          message: ""
