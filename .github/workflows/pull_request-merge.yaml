@@ -1,0 +1,30 @@
+name: PR Merge
+"on":
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+concurrency: production
+jobs:
+  release:
+    name: PR Merge
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged
+    steps:
+
+      - name: Get Next Version
+        id: semver
+        uses: ietf-tools/semver-action@v1
+        with:
+          token: ${{ github.token }}
+          branch: main
+          noVersionBumpBehavior: silent
+          noNewCommitBehavior: silent
+
+      - name: Use Next Version
+        if: ${{ steps.semver.outputs.next != '' }}
+        run: |
+          echo ${{ steps.semver.outputs.next }}
+        env:
+          TZ: UTC
