@@ -22,9 +22,10 @@ jobs:
           noVersionBumpBehavior: silent
           noNewCommitBehavior: silent
 
-      - name: Use Next Version
+      - name: "Use Next Version: Create New Tag"
         if: ${{ steps.semver.outputs.next != '' }}
-        run: |
-          echo ${{ steps.semver.outputs.next }}
+        uses: tvdias/github-tagger@v0.0.2
+        with:
+          tag: ${{ steps.semver.outputs.next }}
         env:
           TZ: UTC
