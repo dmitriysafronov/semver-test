@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - uses: actions/checkout@v2
+
       - name: Get Next Version
         id: semver
         uses: ietf-tools/semver-action@v1
