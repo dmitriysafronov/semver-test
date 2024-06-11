@@ -1,14 +1,18 @@
-name: Push Create Tag
+name: PR Update
 "on":
-  push:
+  pull_request:
     branches:
       - main
-concurrency: production
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
-  create:
-    name: Push  Create Tag
+  update:
+    name: PR Update
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Get Next Version
         id: semver
@@ -19,9 +23,9 @@ jobs:
           noVersionBumpBehavior: silent
           noNewCommitBehavior: silent
 
-      - name: "Use Next Version: Create New Tag"
+      - name: Use Next Version
         if: ${{ steps.semver.outputs.next != '' }}
-        uses: ChloePlanet/github-tag-action@master
+        run: |
+          echo ${{ steps.semver.outputs.next }}
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-          CUSTOM_TAG: ${{ steps.semver.outputs.next }}
+          TZ: UTC

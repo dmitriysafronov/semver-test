@@ -5,17 +5,15 @@ name: PR Merge
       - main
     types:
       - closed
-concurrency: production
 jobs:
   merge:
     name: PR Merge
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
-  
+
       - name: Get Next Version
         id: semver
         uses: ietf-tools/semver-action@v1
@@ -25,7 +23,7 @@ jobs:
           noVersionBumpBehavior: silent
           noNewCommitBehavior: silent
 
-      - name: "Use Next Version: Create New Tag"
+      - name: "Create New Tag"
         if: ${{ steps.semver.outputs.next != '' }}
         uses: mathieudutour/github-tag-action@v6.2
         with:

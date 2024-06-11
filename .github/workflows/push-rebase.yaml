@@ -3,7 +3,9 @@ name: Push Rebase
   push:
     branches:
       - main
-concurrency: production
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   rebase:
     name: Push Rebase
