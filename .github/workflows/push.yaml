@@ -25,10 +25,10 @@ jobs:
 
       - name: "Use Next Version: Create New Tag"
         if: ${{ steps.semver.outputs.next != '' }}
-        uses: ChloePlanet/github-tag-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-          CUSTOM_TAG: ${{ steps.semver.outputs.next }}
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.PAT }}
+          custom_tag: ${{ steps.semver.outputs.next }}
 
   rebase:
     name: Rebase
