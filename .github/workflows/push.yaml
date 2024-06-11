@@ -11,8 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: actions/checkout@v2
-
+      - name: Checkout
+        uses: actions/checkout@v4
+  
       - name: Get Next Version
         id: semver
         uses: ietf-tools/semver-action@v1
@@ -24,10 +25,10 @@ jobs:
 
       - name: "Use Next Version: Create New Tag"
         if: ${{ steps.semver.outputs.next != '' }}
-        uses: laputansoft/github-tag-action@v4.6
-        with:
-          github_token: ${{ secrets.PAT  }}
-          tag: ${{ steps.semver.outputs.next }}
+        uses: ChloePlanet/github-tag-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+          CUSTOM_TAG: ${{ steps.semver.outputs.next }}
 
   rebase:
     name: Rebase
