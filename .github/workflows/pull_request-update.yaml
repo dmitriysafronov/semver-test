@@ -1,12 +1,12 @@
-name: PR Update
+name: PR
 "on":
   pull_request:
     branches:
       - main
 concurrency: production
 jobs:
-  changelog:
-    name: PR Update
+  update:
+    name: Update
     runs-on: ubuntu-latest
     steps:
 
