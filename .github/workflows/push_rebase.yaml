@@ -1,4 +1,4 @@
-name: Rebase on push to main
+name: Push Rebase
 "on":
   push:
     branches:
@@ -6,7 +6,7 @@ name: Rebase on push to main
 concurrency: production
 jobs:
   rebase:
-    name: Rebase on push to main
+    name: Push Rebase
     runs-on: ubuntu-latest
     steps:
       - name: Rebase all pull requests on push to the main branch
